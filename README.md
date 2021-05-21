@@ -5,7 +5,7 @@ Used to unlock OPAL/SED boot disks.
 
 Planned features:
 
- * Static key placed in EFI variables
+ * Static key based on platform VPD or EFI variables
  * TPM 2.0 unmeasured and measured unlock
 
 ## Building
