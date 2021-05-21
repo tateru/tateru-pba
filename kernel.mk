@@ -3,7 +3,7 @@ KERNEL_IMAGE := linux-$(LINUX_VERSION)/arch/x86_64/boot/bzImage
 endif
 
 linux-$(LINUX_VERSION).tar.xz:
-	./get-verified-tarball.sh "$(LINUX_VERSION)" || rm -f "$@"
+	./get-verified-tarball.sh "$(LINUX_VERSION)" || (rm -f "$@"; exit 1)
 
 linux-$(LINUX_VERSION)/.dir: linux-$(LINUX_VERSION).tar.xz
 	tar -xf linux-$(LINUX_VERSION).tar.xz

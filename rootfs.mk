@@ -4,7 +4,7 @@ endif
 
 rootfs-$(ARCH).img:
 	# TODO: This is only placeholder for now...
-	GOARCH="$(GOARCH)" ~/go/bin/u-root -o "$(@)" core boot
+	GOARCH="$(GOARCH)" ~/go/bin/u-root -files ~/sedutil/sedutil-cli -o "$(@)" core boot
 
 rootfs-$(ARCH).zst: rootfs-$(ARCH).img
 	zstd -f "$(^)" -o "$@"

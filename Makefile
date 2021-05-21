@@ -12,6 +12,8 @@ endif
 .PHONY: all
 all: tateru-pba-$(ARCH).img
 
+.DELETE_ON_ERROR:
+
 include kernel.mk
 include rootfs.mk
 include image.mk
