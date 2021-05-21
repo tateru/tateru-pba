@@ -7,3 +7,10 @@ Planned features:
 
  * Static key placed in EFI variables
  * TPM 2.0 unmeasured and measured unlock
+
+## Building
+
+```
+$ sudo apt install gnupg2 gpgv2 flex bison build-essential libelf-dev
+$ make
+```

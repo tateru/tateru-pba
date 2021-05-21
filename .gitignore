@@ -1,0 +1,6 @@
+.*.sw?
+linux-*.tar.xz
+linux-*/
+*.fs
+*.img
+rootfs*
