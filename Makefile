@@ -25,9 +25,11 @@ qemu-x86_64: tateru-pba-x86_64.img arch/x86_64/ovmf.fd
 		-device virtio-scsi-pci,id=scsi0 \
 		-device "scsi-hd,bus=scsi0.0,drive=hd0" \
 		-drive "id=hd0,if=none,format=raw,readonly=on,file=$<" \
-		-drive if=pflash,format=raw,readonly,file=arch/x86_64/ovmf.fd \
 		-accel "$(ACCEL)" \
 		-machine type=q35,smm=on,usb=on \
+		-global driver=cfi.pflash01,property=secure,value=on \
+		-drive if=pflash,format=raw,readonly,file=arch/x86_64/OVMF_CODE_4M.secboot.fd \
+		-drive if=pflash,format=raw,file=arch/x86_64/OVMF_VARS_4M.ms.fd \
 		-serial mon:stdio \
 		-no-reboot \
 		-nographic

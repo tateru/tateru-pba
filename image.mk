@@ -1,3 +1,7 @@
+ifeq ($(ARCH),x86_64)
+BOOTX := bootx64.efi
+endif
+
 tateru-pba-$(ARCH).fs: $(KERNEL_IMAGE) rootfs-$(ARCH).zst
 	truncate -s 30M "$@"
 	mkfs.vfat -n TATERUPBA "$@"
@@ -5,9 +9,7 @@ tateru-pba-$(ARCH).fs: $(KERNEL_IMAGE) rootfs-$(ARCH).zst
 	mmd -oi "$@" ::EFI/BOOT
 	mcopy -oi "$@" $< ::EFI/BOOT/linux.krn
 	mcopy -oi "$@" rootfs-$(ARCH).zst ::EFI/BOOT/rootfs.zst
-	mcopy -oi "$@" arch/$(ARCH)/syslinux.cfg ::EFI/BOOT/
-	mcopy -oi "$@" arch/$(ARCH)/ldlinux* ::EFI/BOOT/
-	mcopy -oi "$@" arch/$(ARCH)/boot*.efi ::EFI/BOOT/
+	mcopy -oi "$@" arch/$(ARCH)/grub*.efi ::EFI/BOOT/$(BOOTX)
 	mdir -/i "$@" ::
 
 tateru-pba-$(ARCH).img: tateru-pba-$(ARCH).fs
