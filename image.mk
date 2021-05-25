@@ -1,5 +1,6 @@
 ifeq ($(ARCH),x86_64)
-BOOTX := bootx64.efi
+BOOTXEFI := bootx64.efi
+GRUBEFI := grubx64.efi
 endif
 
 tateru-pba-$(ARCH).fs: $(KERNEL_IMAGE) rootfs-$(ARCH).zst
@@ -7,9 +8,12 @@ tateru-pba-$(ARCH).fs: $(KERNEL_IMAGE) rootfs-$(ARCH).zst
 	mkfs.vfat -n TATERUPBA "$@"
 	mmd -oi "$@" ::EFI
 	mmd -oi "$@" ::EFI/BOOT
+	mmd -oi "$@" ::EFI/ubuntu
 	mcopy -oi "$@" $< ::EFI/BOOT/linux.krn
 	mcopy -oi "$@" rootfs-$(ARCH).zst ::EFI/BOOT/rootfs.zst
-	mcopy -oi "$@" arch/$(ARCH)/grub*.efi ::EFI/BOOT/$(BOOTX)
+	mcopy -oi "$@" arch/$(ARCH)/grub.cfg ::EFI/ubuntu/
+	mcopy -oi "$@" arch/$(ARCH)/shim*.efi* ::EFI/BOOT/$(BOOTXEFI)
+	mcopy -oi "$@" arch/$(ARCH)/grub*.efi* ::EFI/BOOT/$(GRUBEFI)
 	mdir -/i "$@" ::
 
 tateru-pba-$(ARCH).img: tateru-pba-$(ARCH).fs

@@ -32,6 +32,7 @@ qemu-x86_64: tateru-pba-x86_64.img arch/x86_64/ovmf.fd
 		-drive if=pflash,format=raw,file=arch/x86_64/OVMF_VARS_4M.ms.fd \
 		-serial mon:stdio \
 		-no-reboot \
+		-boot order=c,strict=on,menu=on \
 		-nographic
 
 .PHONY: clean
